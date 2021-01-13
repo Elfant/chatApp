@@ -1,7 +1,12 @@
 import React from "react";
 
+import Conversation from "./Conversation";
+
  const App = () => (
-   <div>Chat App</div>
+   <main>
+    <h1>Chat App</h1>
+    <Conversation />
+   </main>
  );
 
  export default App;
