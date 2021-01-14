@@ -1,11 +1,11 @@
 import React from "react";
 
-import Contacts from "./Contacts";
+import Sidebar from "./Sidebar";
 import Conversation from "./Conversation";
 
 const App = () => (
   <main className="container">
-    <Contacts />
+    <Sidebar />
     <Conversation />
   </main>
 );
