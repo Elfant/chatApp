@@ -1,0 +1,16 @@
+.create-message {
+  align-self: flex-end;
+
+  &__form {
+    display: flex;
+  }
+
+  &__text {
+    flex: 1;
+    padding: $spacing-x1 0 0 $spacing-x1;
+  }
+
+  &__button {
+    padding: 0 $spacing-x1;
+  }
+}

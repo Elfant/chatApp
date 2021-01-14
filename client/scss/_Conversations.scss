@@ -1,0 +1,9 @@
+.conversation {
+  flex: 3;
+  background-color: whitesmoke;
+  display: flex;
+
+  &__create-message {
+    flex: 1;
+  }
+}

@@ -2,7 +2,7 @@ import React from "react";
 import CreateMessage from "./CreateMessage";
 
 const Conversation = () => (
-  <div className="conversation" id="">
+  <div className="conversation">
     <CreateMessage />
   </div>
 );

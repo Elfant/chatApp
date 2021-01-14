@@ -1,12 +1,13 @@
 import React from "react";
 
+import Contacts from "./Contacts";
 import Conversation from "./Conversation";
 
- const App = () => (
-   <main>
-    <h1>Chat App</h1>
+const App = () => (
+  <main className="container">
+    <Contacts />
     <Conversation />
-   </main>
- );
+  </main>
+);
 
- export default App;
+export default App;

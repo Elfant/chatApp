@@ -1,4 +1,8 @@
-@import "./Conversations.scss";
+@import "./_variables";
+
+@import "./_Conversations";
+@import "./_Contacts";
+@import "./_CreateMessage";
 
 * {
   box-sizing: border-box;
@@ -7,7 +11,10 @@
 };
 
 body {
-  height: 100vh;
-  max-width: 1024px;
   margin: auto;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
 }
