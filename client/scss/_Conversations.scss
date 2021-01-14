@@ -2,8 +2,13 @@
   flex: 3;
   background-color: whitesmoke;
   display: flex;
+  flex-direction: column;
+  text-align: right;
+  justify-content: space-between;
+  position: relative;
+  padding-bottom: $spacing-x12;
 
   &__create-message {
-    flex: 1;
+    width: 100%;
   }
 }
