@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 
 const Message = mongoose.model("conversation", {
-  id: "",
-
   messages: [
     {
       author: String,
