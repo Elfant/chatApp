@@ -22,10 +22,12 @@ const App = () => {
 
   return (
     <>
-      <Navbar />
       <main className="container">
-        <Sidebar />
-        <Conversation messages={messages} />
+        <Navbar />
+        <div className="container__wrapper">
+          <Sidebar />
+          <Conversation messages={messages} />
+        </div>
       </main>
     </>
   );

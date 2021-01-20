@@ -1,7 +1,7 @@
 import React from "react";
 
 const Sidebar = () => (
-  <div className="sidebar">
+  <aside className="sidebar">
     <div className="sidebar__buttons-group">
       <button className="sidebar__button">Konwersacje</button>
       <button className="sidebar__button">Kontakty</button>
@@ -15,7 +15,7 @@ const Sidebar = () => (
       </div>
       <button className="sidebar__button-new">Nowa konwersacja</button>
     </div>
-  </div>
+  </aside>
 );
 
 export default Sidebar;

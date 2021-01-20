@@ -4,14 +4,14 @@ import Message from "./Message";
 
 const Conversation = (props) => {
   return (
-    <div className="conversation">
+    <section className="conversation">
       {
         props.messages.map((message) => (
           <Message key={message.id} content={message.content} name={message.name}/>
         ))
       }
     <CreateMessage />
-  </div>
+  </section>
   );
 };
 

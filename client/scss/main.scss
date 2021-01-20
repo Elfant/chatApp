@@ -16,6 +16,12 @@ body {
 }
 
 .container {
-  height: calc(100vh - 90px);
+  height: 100vh;
   display: flex;
+  flex-direction: column;
+
+  &__wrapper {
+    flex: 1;
+    display: flex;
+  }
 }
