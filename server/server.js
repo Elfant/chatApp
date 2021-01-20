@@ -5,6 +5,15 @@ const fs = require("fs");
 const express = require("express");
 const http = require("http");
 const socket = require("socket.io");
+
+//database
+require("../db/mongoose.config");
+const User = require("../db/models/User.js");
+
+// const user = new User({name: "Jan", password: "pies", email: "pies@wp.pl"});
+// user.save().then(() => console.log(user));
+
+
 // const messages = [];
 
 //create express app
