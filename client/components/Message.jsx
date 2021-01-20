@@ -1,10 +1,13 @@
 import React from "react";
 
-const Message = () => {
+const Message = (props) => {
   return(
     <div className="conversation__message message">
+      <h4>
+        {props.name}
+      </h4>
       <p>
-        Wiadomość ode mnie 1
+        {props.content}
       </p>
     </div>
   );
