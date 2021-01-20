@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import socketIoClient from "socket.io-client";
 
+import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import Conversation from "./Conversation";
 
@@ -20,10 +21,13 @@ const App = () => {
   // }, []);
 
   return (
-    <main className="container">
-      <Sidebar />
-      <Conversation messages={messages} />
-    </main>
+    <>
+      <Navbar />
+      <main className="container">
+        <Sidebar />
+        <Conversation messages={messages} />
+      </main>
+    </>
   );
 };
 

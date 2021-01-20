@@ -1,5 +1,6 @@
 @import "./_variables";
 
+@import "./Navbar";
 @import "./_Conversations";
 @import "./_Sidebar";
 @import "./_CreateMessage";
@@ -15,6 +16,6 @@ body {
 }
 
 .container {
-  height: 100vh;
+  height: calc(100vh - 90px);
   display: flex;
 }
