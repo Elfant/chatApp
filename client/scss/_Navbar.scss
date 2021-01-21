@@ -1,9 +1,35 @@
 .navbar {
   background-color: #212121;
-  padding: 10px;
+  padding: $spacing-x2;
+  display: flex;
+  justify-content: space-between;
 
   &__logo {
-    width: 200px;
-    height: 70px;
+    width: 150px;
+    height: 60px;
+  
+    @media (min-width: 768px) {
+      width: 200px;
+      height: 70px;
+    }
   }
+
+  &__hamburger  {
+    @media (min-width: 768px) {
+      display: none;
+    }
+    margin: $spacing-x1 0;
+    outline: none;
+    // border: none;
+  }
+}
+
+#navbar-button {
+  background-color: #212121;
+  // margin: $spacing-x1 0;
+  // border: 0px;
+  border: 0px solid black;
+  height: 50px;
+  width: 50px;
+  
 }
