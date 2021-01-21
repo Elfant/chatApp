@@ -1,0 +1,15 @@
+.button {
+  padding: $spacing-x3 $spacing-x5;
+  color: white;
+  background-image: linear-gradient(to right, black 0%, black 51%, #9B0000 100%);
+  border: 1px solid black;
+  border-radius: 30px;
+  transition: 0.3s;
+  background-size: 200% auto;
+
+  &:hover  {
+    color:white;
+    background-position: right center;
+    box-shadow: 0 0 10px black;
+  }
+}

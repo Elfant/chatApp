@@ -1,9 +1,15 @@
 .sidebar {
   flex: 1;
   position: relative;
+  background-color: #484848;
+  display: flex;
+  flex-direction: column;
 
   &__buttons-group {
     display: flex;
+    align-self: center;
+    flex-direction: row;
+    
   }
 
   &__button {
@@ -12,9 +18,16 @@
   }
 
   &__button-new {
-    width: 100%;
-    height: 52px;
-    position: absolute;
-    bottom: 0;
+    align-self: center;
+    justify-self: flex-end;
+  }
+
+  &__content  {
+    display: flex;  
+    flex: 1;
+    flex-wrap: no-wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: $spacing-x4 0;
   }
 }

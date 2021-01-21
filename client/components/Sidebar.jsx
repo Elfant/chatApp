@@ -13,7 +13,7 @@ const Sidebar = () => (
           <li>Rozmowa z Pawłem</li>
         </ul>
       </div>
-      <button className="sidebar__button-new">Nowa konwersacja</button>
+      <button className="sidebar__button-new button">NOWA KONWERSACJA</button>
     </div>
   </aside>
 );

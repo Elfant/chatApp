@@ -29,13 +29,14 @@ const CreateMessage = (props) => {
           onChange={(e) => setInputValue(e.target.value)}
           value={inputValue}
           rows="3"
-          placeholder="Wpisz wiadomość"
+          placeholder="Wpisz wiadomość do swojego BRO!"
           className="create-message__text"
+          spellcheck="true"
         ></textarea>
         <input
           type="submit"
           value="Wyślij"
-          className="create-message__button"
+          className="create-message__button button"
         ></input>
       </form>
     </div>

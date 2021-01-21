@@ -1,7 +1,7 @@
 .create-message {
   position: absolute;
   bottom: 0;
-  background-color: aquamarine;
+  background-color: #BCBCBC;
 
   &__form {
     display: flex;
@@ -12,6 +12,9 @@
     width: 100%;
     padding: $spacing-x1 0 0 $spacing-x1;
     resize: none; 
+    background-color: #BCBCBC;
+    border: none;
+    outline: none;
   }
 
   &__button {
