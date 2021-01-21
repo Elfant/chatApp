@@ -19,17 +19,14 @@
       display: none;
     }
     margin: $spacing-x1 0;
-    outline: none;
-    // border: none;
   }
 }
 
 #navbar-button {
   background-color: #212121;
-  // margin: $spacing-x1 0;
-  // border: 0px;
   border: 0px solid black;
   height: 50px;
   width: 50px;
+  outline:none
   
 }
