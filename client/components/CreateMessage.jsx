@@ -35,7 +35,7 @@ const CreateMessage = (props) => {
         ></textarea>
         <input
           type="submit"
-          value="Wyślij"
+          value="WYŚLIJ"
           className="create-message__button button"
         ></input>
       </form>

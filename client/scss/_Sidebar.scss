@@ -9,7 +9,6 @@
     display: flex;
     align-self: center;
     flex-direction: row;
-    
   }
 
   &__button {
@@ -22,12 +21,17 @@
     justify-self: flex-end;
   }
 
-  &__content  {
+  &__content {
     display: flex;  
     flex: 1;
     flex-wrap: no-wrap;
     flex-direction: column;
     justify-content: space-between;
     padding: $spacing-x4 0;
+  }
+
+  &__list ul {
+    padding-left: $spacing-x4;
+    list-style-type: none;
   }
 }

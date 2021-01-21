@@ -6,7 +6,9 @@
   text-align: right;
   justify-content: space-between;
   position: relative;
-  padding-bottom: $spacing-x12;
+  padding-bottom: $spacing-x16;
+  padding-top: $spacing-x2;
+  padding-right: $spacing-x4;
 
   &__create-message {
     width: 100%;
