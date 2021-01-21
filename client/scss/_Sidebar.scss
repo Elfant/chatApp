@@ -9,11 +9,34 @@
     display: flex;
     align-self: center;
     flex-direction: row;
+    width: 100%;
+    background-color: black;
   }
 
-  &__button {
+  &__button-on {
     flex: 1;
-    padding: 20px 0;
+    padding: $spacing-x4 $spacing-x4;
+    background-color: #484848;
+    color: white;
+    border: 0px solid #484848;
+    border-radius: 0 40px 0 0;
+   
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  &__button-off {
+    flex: 1;
+    padding: $spacing-x4 $spacing-x4;
+    background-color: black;
+    color: white;
+    border: 0px solid black;
+    border-radius: 0 40px 0 0;
+
+    &:focus {
+      outline: 0;
+    }
   }
 
   &__button-new {

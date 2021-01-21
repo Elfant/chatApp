@@ -3,8 +3,8 @@ import React from "react";
 const Sidebar = () => (
   <aside className="sidebar">
     <div className="sidebar__buttons-group">
-      <button className="sidebar__button">Konwersacje</button>
-      <button className="sidebar__button">Kontakty</button>
+      <button className="sidebar__button-on">KONWERSACJE</button>
+      <button className="sidebar__button-off">KONTAKTY</button>
     </div>
     <div className="sidebar__content">
       <div className="sidebar__list">
