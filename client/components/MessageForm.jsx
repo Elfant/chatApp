@@ -1,27 +1,37 @@
 import React, { useEffect, useState } from "react";
 import socketIoClient from "socket.io-client";
+import moment from "moment";
 
-const CreateMessage = (props) => {
+const MessageForm = (props) => {
   const [inputValue, setInputValue] = useState("");
+
   const [newMessage, setNewMessage] = useState({
-    id: 1,
-    content: "",
-    name: "User4",
+    id: "",
+    author: "",
+    content: inputValue,
+    date: null,
   });
 
+  //Creating and sending message
   const handleSubmit = (e) => {
     e.preventDefault();
 
     setNewMessage((prevState) => ({
-      ...prevState,
+      id: "123",
+      author: "",
+      authorId: "",
       content: inputValue,
+      date: moment.now(),
     }));
-    
-    const socket = socketIoClient("http://localhost:3000");
-    socket.emit("message", newMessage);
   };
 
-  //connect to server
+  useEffect(() => {
+    if (newMessage.content && newMessage.date) {
+      window.ioClient.sendMessage(newMessage);
+      setNewMessage({});
+    }
+  }, [newMessage]);
+
   return (
     <div className="conversation__create-message create-message">
       <form onSubmit={handleSubmit} className="create-message__form">
@@ -42,4 +52,4 @@ const CreateMessage = (props) => {
   );
 };
 
-export default CreateMessage;
+export default MessageForm;

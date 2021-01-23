@@ -9,24 +9,37 @@ const socket = require("socket.io");
 require("../db/mongoose.config");
 const User = require("../db/models/User.js");
 const Conversation = require("../db/models/Conversation");
+const mongoose = require("mongoose");
 
 // const user = new User({name: "Jan", password: "pies", email: "pies@wp.pl"});
 // user.save().then(() => console.log(user));
 
-// const conversation = new Conversation({id: "1", messages: [{author: "olek", content: "bla bla bla", date:"20.01.2021"}]});
-// conversation.save()
-//   .then((msg) => {console.log(msg)})
+const createConversation = () => {
+  const conversation = new Conversation({
+    _id: mongoose.Types.ObjectId(),
+    messages: [],
+  });
+  conversation.save();
+};
 
-// Conversation.findByIdAndUpdate(
-//   { _id: "60089eeb497dfe4858040753" },
-//   {
-//     $push: {
-//       messages: { author: "olek2", content: "bla bla bla2", date: "20.01.20212" },
-//     },
-//   }
-// ).then((data) => console.log(data));
 const getMessages = (id) => {
   return Conversation.findById("60089eeb497dfe4858040753");
+};
+
+const updateConversation = (_id, author, content, date) => {
+  return Conversation.findByIdAndUpdate(
+    { _id },
+    {
+      $push: {
+        messages: {
+          id,
+          author,
+          content,
+          date,
+        },
+      },
+    }
+  );
 };
 
 //create express app
@@ -44,8 +57,19 @@ const disPath = path.join(__dirname, "../dist");
 app.use(express.static(disPath));
 
 //handle connection with client
-io.on("connection", (socket) => {
-  getMessages().then((data) => io.emit("sendConversation", data));
-});
+// io.on("connection", (socket) => {
+//   //sending messages when client connect
+//   getMessages().then((data) => io.emit("sendConversation", data));
+
+//   //adding new message to conversation
+//   socket.on("newMessage", ({ _id, author, content, date }) => {
+//     updateConversation(_id, author, content, date).then("");
+//   });
+
+//   // creating conversation
+//   socket.on("createConversation", (socket) => {
+//     createConversation();
+//   });
+// });
 
 server.listen(PORT, () => console.log(`server running on ${PORT}`));
