@@ -1,16 +1,29 @@
 import React from "react";
 import Message from "./Message";
 
-const Conversation = ({messages}) => {
+const Conversation = ({ conversations, whichIsClicked }) => {
+  const displayMatchingConversation = () => {
+    const matchingConversation = conversations.find(
+      (el) => el._id === whichIsClicked
+    );
+    const { messages } = matchingConversation;
+
+    if (messages.length) {
+      return messages.map((el, i) => (
+        <div key={i}>Konwersacja {whichIsClicked}</div>
+      ));
+    } else {
+      return <div>Brak wiadomosci</div>;
+    }
+  };
+
   return (
     <div className="conversation">
-      {messages.map((message) => (
-        <Message
-          key={message._id}
-          content={message.content}
-          name={message.author}
-        />
-      ))}
+      {conversations.length ? (
+        displayMatchingConversation()
+      ) : (
+        <h1>Nie masz zadnych konwesacji</h1>
+      )}
     </div>
   );
 };

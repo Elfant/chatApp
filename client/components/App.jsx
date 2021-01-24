@@ -11,14 +11,12 @@ const { ioClient } = window;
 const App = () => {
   const path = "http://localhost:3000";
 
-  const [user, setUser] = useState({ _id: "600ad71e25785a1edcd3d58e", name: "Ja" }); // id comes from login page
-  const [contacts, setContacts] = useState([
-    { name: "Kasia", _id: "600ad7aa9e5d7a367841d341" },
-    { name: "Jan", _id: "600ad8028b0bec3a00b7c6a1" },
-    { name: "Klaudia", _id: "1" },
-  ]);
-  const [messages, setMessages] = useState([]);
+  const [user, setUser] = useState({
+    _id: "600ad71e25785a1edcd3d58e",
+    name: "Ja",
+  }); // id comes from login page
   const [conversations, setConversations] = useState([]);
+  const [whichIsClicked, setWhichIsClicked] = useState("");
 
   return (
     <main className="container">
@@ -26,9 +24,13 @@ const App = () => {
         user={user}
         conversations={conversations}
         setConversations={setConversations}
-        contacts={contacts}
+        setWhichIsClicked={setWhichIsClicked}
       />
-      <Conversation connection={connection} messages={messages} />
+      <Conversation
+        whichIsClicked={whichIsClicked}
+        connection={connection}
+        conversations={conversations}
+      />
       <MessageForm />
     </main>
   );
