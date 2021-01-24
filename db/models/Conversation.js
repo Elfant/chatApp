@@ -1,13 +1,8 @@
 const mongoose = require("mongoose");
 
-const Message = mongoose.model("conversation", {
-  messages: [
-    {
-      author: String,
-      content: String,
-      date: String,
-    },
-  ],
+const Conversation = mongoose.model("Conversation", {
+  _id: mongoose.ObjectId,
+  usersConversation: [],
 });
 
-module.exports = Message;
+module.exports = Conversation;

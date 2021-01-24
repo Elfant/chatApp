@@ -10,7 +10,7 @@ const Conversation = ({ conversations, whichIsClicked }) => {
 
     if (messages.length) {
       return messages.map((el, i) => (
-        <div key={i}>Konwersacja {whichIsClicked}</div>
+        <Message key={i} temp={whichIsClicked}/>
       ));
     } else {
       return <div>Brak wiadomosci</div>;

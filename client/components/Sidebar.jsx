@@ -17,12 +17,15 @@ const Sidebar = ({
     setWhichIsClicked(member._id);
     if (conversations.some((el) => el._id === member._id)) return;
 
+    //sending new conversation to server
+    window.ioClient.addConversation(user._id);
+
     setConversations((prevState) => [
       ...prevState,
       {
         _id: member._id,
         members: [user, member],
-        messages: [{ author: "kazik", content: "siema co tam" }],
+        messages: [],
       },
     ]);
   };

@@ -15,14 +15,14 @@ export default (path) => {
     },
 
     updateMessages() {
-      console.log("pies")
+      console.log("pies");
       return new Promise((resolve, reject) => {
-        io.on("newMessage", (resp) => resolve(resp))
-      }) 
+        io.on("newMessage", (resp) => resolve(resp));
+      });
     },
 
-    createConversation() {
-      io.emit("createConversation");
+    addConversation(userId) {
+      io.emit("addConversation", userId);
     },
   };
 };
