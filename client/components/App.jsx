@@ -31,7 +31,7 @@ const App = () => {
         connection={connection}
         conversations={conversations}
       />
-      <MessageForm />
+      <MessageForm author={user} whichIsClicked={whichIsClicked}/>
     </main>
   );
 };

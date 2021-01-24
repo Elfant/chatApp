@@ -2,32 +2,28 @@ import React, { useEffect, useState } from "react";
 import socketIoClient from "socket.io-client";
 import moment from "moment";
 
-const MessageForm = (props) => {
+const MessageForm = ({whichIsClicked, author}) => {
   const [inputValue, setInputValue] = useState("");
 
-  const [newMessage, setNewMessage] = useState({
-    id: "",
-    author: "",
-    content: inputValue,
-    date: null,
-  });
+  const [newMessage, setNewMessage] = useState({});
 
   //Creating and sending message
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setNewMessage((prevState) => ({
-      id: "123",
-      author: "",
-      authorId: "",
+    setNewMessage(() => ({
+      author: author.name,
+      authorId: author._id,
       content: inputValue,
       date: moment.now(),
     }));
+
+    setInputValue("");
   };
 
   useEffect(() => {
     if (newMessage.content && newMessage.date) {
-      window.ioClient.sendMessage(newMessage);
+      window.ioClient.sendMessage({ newMessage, currentInter: whichIsClicked });
       setNewMessage({});
     }
   }, [newMessage]);

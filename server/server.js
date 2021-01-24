@@ -34,27 +34,22 @@ const addConversation = ({ conversationContent, ownerId }) => {
     $push: {
       userConversations: conversationContent,
     },
-  }).catch(e => console.log(e))
+  }).catch((e) => console.log(e));
 };
 
 const getMessages = (id) => {
   return Conversation.findById("60089eeb497dfe4858040753");
 };
 
-const updateConversation = (_id, author, content, date) => {
-  return Conversation.findByIdAndUpdate(
-    { _id },
+const updateConversation = ({ newMessage, currentInter }) => {
+  Conversation.findOneAndUpdate(
+    { "userConversations._id": currentInter },
     {
       $push: {
-        messages: {
-          id,
-          author,
-          content,
-          date,
-        },
+        "userConversations.$[].messages": newMessage,
       },
     }
-  );
+  ).catch((e) => console.log(e));
 };
 
 //create express app
@@ -76,10 +71,10 @@ io.on("connection", (socket) => {
   //   //sending messages when client connect
   //   getMessages().then((data) => io.emit("sendConversation", data));
 
-  //   //adding new message to conversation
-  //   socket.on("newMessage", ({ _id, author, content, date }) => {
-  //     updateConversation(_id, author, content, date).then("");
-  //   });
+  //adding new message to conversation
+  socket.on("newMessage", (data) => {
+    updateConversation(data);
+  });
 
   // init conversations for new user
   socket.on("initConversations", (userId) => {
