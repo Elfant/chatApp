@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Conversation = mongoose.model("Conversation", {
   _id: mongoose.ObjectId,
-  usersConversation: [],
+  userConversations: [],
 });
 
 module.exports = Conversation;

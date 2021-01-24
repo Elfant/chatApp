@@ -16,21 +16,26 @@ const mongoose = require("mongoose");
 
 // createConversations();
 
-const handleConversations  = async (userId) => {
-  const isInBase = await Conversation.findById(userId)
+const handleConversations = async (userId) => {
+  const isInBase = await Conversation.findById(userId);
 
   if (isInBase) {
-    console.log("aktualizuje konwersacje")
+    console.log("aktualizuje konwersacje");
   } else {
     const _id = new mongoose.mongo.ObjectId(userId);
     const conversation = new Conversation({ _id });
 
-    // conversation.findById(id).then((item) => console.log(item));
     conversation.save();
   }
 };
 
-
+const addConversation = ({ conversationContent, ownerId }) => {
+  Conversation.findByIdAndUpdate(ownerId, {
+    $push: {
+      userConversations: conversationContent,
+    },
+  }).catch(e => console.log(e))
+};
 
 const getMessages = (id) => {
   return Conversation.findById("60089eeb497dfe4858040753");
@@ -76,9 +81,14 @@ io.on("connection", (socket) => {
   //     updateConversation(_id, author, content, date).then("");
   //   });
 
-  // creating conversation
-  socket.on("addConversation", (userId) => {
-    handleConversations(userId)
+  // init conversations for new user
+  socket.on("initConversations", (userId) => {
+    handleConversations(userId);
+  });
+
+  // add new conversations
+  socket.on("addConversation", (user) => {
+    addConversation(user);
   });
 });
 

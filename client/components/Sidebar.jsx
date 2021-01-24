@@ -15,18 +15,22 @@ const Sidebar = ({
 
   const handleAddingToConversation = (member) => {
     setWhichIsClicked(member._id);
+
     if (conversations.some((el) => el._id === member._id)) return;
 
+    const conversationContent = {
+      _id: member._id,
+      members: [user, member],
+      messages: [],
+    };
+
     //sending new conversation to server
-    window.ioClient.addConversation(user._id);
+    window.ioClient.initConversations(user._id);
+    window.ioClient.addConversation({conversationContent, ownerId: user._id});
 
     setConversations((prevState) => [
       ...prevState,
-      {
-        _id: member._id,
-        members: [user, member],
-        messages: [],
-      },
+      conversationContent
     ]);
   };
 

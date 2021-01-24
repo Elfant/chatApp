@@ -21,8 +21,12 @@ export default (path) => {
       });
     },
 
-    addConversation(userId) {
-      io.emit("addConversation", userId);
+    initConversations(userId) {
+      io.emit("initConversations", userId);
     },
+
+    addConversation(conversation) {
+      io.emit("addConversation", conversation)
+    }
   };
 };
