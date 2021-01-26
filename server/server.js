@@ -22,43 +22,35 @@ const mongoose = require("mongoose");
 // });
 // user.save().then(() => console.log(user));
 
-// createConversations();
-
-const handleConversations = async (userId) => {
-  const isInBase = await Conversation.findById(userId);
-
-  if (isInBase) {
-    console.log("aktualizuje konwersacje");
-  } else {
-    const _id = new mongoose.mongo.ObjectId(userId);
-    const conversation = new Conversation({ _id });
-
-    conversation.save();
-  }
+const getConversations = (id = "60100ccb2aaa575a98af777f") => {
+  return Conversation.find({ "members._id": id });
 };
 
-const getConversations = (id) => {
-  return Conversation.findById(id);
-};
+const handleInitConversation = (members) => {
+  const conversation = new Conversation({ members });
 
-const addConversation = ({ conversationContent, ownerId }) => {
-  Conversation.findByIdAndUpdate(ownerId, {
-    $push: {
-      userConversations: conversationContent,
-    },
-  }).catch((e) => console.log(e));
+  conversation.save().then((conv) =>
+    User.updateMany(
+      { _id: { $in: conv.members } },
+      {
+        $push: {
+          conversations: conv._id,
+        },
+      }
+    ).catch((e) => console.log(e))
+  );
 };
 
 const getContacts = (id) => {
   return User.findById(id);
 };
 
-const updateConversation = ({ newMessage, currentInter }) => {
+const updateConversation = ({ newMessage, convId }) => {
   Conversation.updateOne(
-    { "userConversations._id": currentInter },
+    { _id: convId },
     {
       $push: {
-        "userConversations.$.messages": newMessage,
+        messages: newMessage,
       },
     }
   ).catch((e) => console.log(e));
@@ -85,9 +77,14 @@ io.on("connection", (socket) => {
     getConversations(userId).then((data) => io.emit("sendConversations", data));
   });
 
-  //sending clents contacts
+  //sending clients contacts
   socket.on("getContacts", (userId) => {
     getContacts(userId).then((data) => io.emit("sendContacts", data));
+  });
+
+  // conversations for new user
+  socket.on("initConversation", (members) => {
+    handleInitConversation(members);
   });
 
   //adding new message to conversation
@@ -95,15 +92,10 @@ io.on("connection", (socket) => {
     updateConversation(data);
   });
 
-  // init conversations for new user
-  socket.on("initConversations", (userId) => {
-    handleConversations(userId);
-  });
-
-  // add new conversations
-  socket.on("addConversation", (user) => {
-    addConversation(user);
-  });
+  // // add new conversations
+  // socket.on("addConversation", (user) => {
+  //   addConversation(user);
+  // });
 });
 
 server.listen(PORT, () => console.log(`server running on ${PORT}`));

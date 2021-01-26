@@ -12,22 +12,31 @@ const App = () => {
   const path = "http://localhost:3000";
 
   const [user, setUser] = useState({
-    _id: "600f1de9096c7e1388297f17",
+    _id: "60100ccb2aaa575a98af777f",
     name: "Kazik",
   }); // id comes from login page
   const [conversations, setConversations] = useState([]);
-  const [whichIsClicked, setWhichIsClicked] = useState("");
+  const [currentInter, setCurrentInter] = useState("");
   const [contacts, setContacts] = useState([]);
+  const [currentOpenConversation, setCurrentOpenConversation] = useState({});
 
   useEffect(() => {
+    // setting conversations after page loaded
     ioClient.getConversations(user._id);
-    ioClient
-      .setConversations()
-      .then((data) => setConversations(data.userConversations));
+    ioClient.setConversations().then((data) => setConversations(data));
 
+    // setting contacts after page loaded
     ioClient.getContacts(user._id);
     ioClient.setContacts().then((data) => setContacts(data.contacts));
   }, []);
+
+  useEffect(() => {
+    // finding matching conversation with our interlocutor
+    const matching = conversations.find((el) =>
+      el.members.some((item) => item._id === currentInter)
+    );
+    setCurrentOpenConversation(matching);
+  }, [currentInter]);
 
   return (
     <main className="container">
@@ -36,17 +45,23 @@ const App = () => {
         user={user}
         conversations={conversations}
         setConversations={setConversations}
-        setWhichIsClicked={setWhichIsClicked}
+        setCurrentInter={setCurrentInter}
       />
       <Conversation
-        whichIsClicked={whichIsClicked}
+        currentInter={currentInter}
         conversation={
-          whichIsClicked
-            ? conversations.find((el) => el._id === whichIsClicked)
-            : conversations[0]
+          Object.keys(conversations).length
+            ? currentOpenConversation
+              ? currentOpenConversation
+              : null
+            : null
         }
       />
-      <MessageForm author={user} whichIsClicked={whichIsClicked} />
+      <MessageForm
+        author={user}
+        currentInter={currentInter}
+        currentOpenConversation={currentOpenConversation}
+      />
     </main>
   );
 };

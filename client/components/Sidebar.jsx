@@ -5,14 +5,11 @@ const Sidebar = ({
   conversations,
   setConversations,
   user,
-  setWhichIsClicked,
-  contacts
+  setCurrentInter,
+  contacts,
 }) => {
- 
   const handleAddingToConversation = (member) => {
-    setWhichIsClicked(member._id);
-
-    if (conversations.some((el) => el._id === member._id)) return;
+    setCurrentInter(member._id);
 
     const conversationContent = {
       _id: member._id,
@@ -20,14 +17,18 @@ const Sidebar = ({
       messages: [],
     };
 
-    //sending new conversation to server
-    window.ioClient.initConversations(user._id);
-    window.ioClient.addConversation({conversationContent, ownerId: user._id});
+    let numberOfCopy = 0;
 
-    setConversations((prevState) => [
-      ...prevState,
-      conversationContent
-    ]);
+    conversations.forEach((element) => {
+      if (element.members.some((el) => el._id === member._id)) {
+        numberOfCopy++;
+      };
+    });
+
+    if (numberOfCopy === 0) {
+      setConversations((prevState) => [...prevState, conversationContent]);
+      window.ioClient.initConversations([user, member]);
+    }
   };
 
   return (

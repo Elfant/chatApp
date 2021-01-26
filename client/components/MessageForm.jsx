@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import socketIoClient from "socket.io-client";
 import moment from "moment";
 
-const MessageForm = ({whichIsClicked, author}) => {
+const MessageForm = ({ currentInter, author, currentOpenConversation }) => {
   const [inputValue, setInputValue] = useState("");
 
   const [newMessage, setNewMessage] = useState({});
@@ -23,8 +23,11 @@ const MessageForm = ({whichIsClicked, author}) => {
 
   useEffect(() => {
     if (newMessage.content && newMessage.date) {
-     console.log(whichIsClicked)
-      window.ioClient.sendMessage({ newMessage, currentInter: whichIsClicked });
+      console.log(currentInter);
+      window.ioClient.sendMessage({
+        newMessage,
+        convId: currentOpenConversation._id,
+      });
       setNewMessage({});
     }
   }, [newMessage]);
@@ -40,7 +43,7 @@ const MessageForm = ({whichIsClicked, author}) => {
           className="create-message__text"
         ></textarea>
         <input
-          disabled={whichIsClicked ? false : true}
+          disabled={currentInter ? false : true}
           type="submit"
           value="Wyślij"
           className="create-message__button"

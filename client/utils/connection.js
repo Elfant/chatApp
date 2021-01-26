@@ -29,18 +29,13 @@ export default (path) => {
     },
 
     updateMessages() {
-      console.log("pies");
       return new Promise((resolve, reject) => {
         io.on("newMessage", (resp) => resolve(resp));
       });
     },
 
-    initConversations(userId) {
-      io.emit("initConversations", userId);
-    },
-
-    addConversation(conversation) {
-      io.emit("addConversation", conversation);
+    initConversations(members) {
+      io.emit("initConversation", members);
     },
   };
 };

@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Message from "./Message";
 
-const Conversation = ({ whichIsClicked, conversation }) => {
-  const [matchingConversation, setMatchingConversation] = useState({});
-
-  useEffect(() => setMatchingConversation(conversation), [whichIsClicked]);
-
+const Conversation = ({ conversation }) => {
+  console.log(conversation);
   return (
     <div className="conversation">
-      {matchingConversation && matchingConversation.messages ? (
-        matchingConversation.messages.map((msg, i) => (
-          <Message key={i} msg={msg} />
-        ))
-      ) : conversation ? (
+      {conversation ? (
         conversation.messages.map((msg, i) => <Message key={i} msg={msg} />)
       ) : (
         <div>Brak konwersacji</div>
