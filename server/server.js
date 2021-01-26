@@ -11,7 +11,15 @@ const User = require("../db/models/User.js");
 const Conversation = require("../db/models/Conversation.js");
 const mongoose = require("mongoose");
 
-// const user = new User({name: "Kazi", password: "kazik", email: "kazik@poczta.pl", contacts: [{name: "Jan"}, {name: "Krzysiek"}]});
+// const user = new User({
+//   name: "Kazik",
+//   password: "kazik",
+//   email: "kazik@poczta.pl",
+//   contacts: [
+//     { name: "Kasia", _id: "600cdf0a8f3a6a53482307f4" },
+//     { name: "Bartek", _id: "600cdf881a3cee1088283653" },
+//   ],
+// });
 // user.save().then(() => console.log(user));
 
 // createConversations();
@@ -29,6 +37,10 @@ const handleConversations = async (userId) => {
   }
 };
 
+const getConversations = (id) => {
+  return Conversation.findById(id);
+};
+
 const addConversation = ({ conversationContent, ownerId }) => {
   Conversation.findByIdAndUpdate(ownerId, {
     $push: {
@@ -37,16 +49,16 @@ const addConversation = ({ conversationContent, ownerId }) => {
   }).catch((e) => console.log(e));
 };
 
-const getMessages = (id) => {
-  return Conversation.findById("60089eeb497dfe4858040753");
+const getContacts = (id) => {
+  return User.findById(id);
 };
 
 const updateConversation = ({ newMessage, currentInter }) => {
-  Conversation.findOneAndUpdate(
+  Conversation.updateOne(
     { "userConversations._id": currentInter },
     {
       $push: {
-        "userConversations.$[].messages": newMessage,
+        "userConversations.$.messages": newMessage,
       },
     }
   ).catch((e) => console.log(e));
@@ -68,8 +80,15 @@ app.use(express.static(disPath));
 
 //handle connection with client
 io.on("connection", (socket) => {
-  //   //sending messages when client connect
-  //   getMessages().then((data) => io.emit("sendConversation", data));
+  //sending clents conversations
+  socket.on("getConversations", (userId) => {
+    getConversations(userId).then((data) => io.emit("sendConversations", data));
+  });
+
+  //sending clents contacts
+  socket.on("getContacts", (userId) => {
+    getContacts(userId).then((data) => io.emit("sendContacts", data));
+  });
 
   //adding new message to conversation
   socket.on("newMessage", (data) => {

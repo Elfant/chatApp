@@ -1,28 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Message from "./Message";
 
-const Conversation = ({ conversations, whichIsClicked }) => {
-  const displayMatchingConversation = () => {
-    const matchingConversation = conversations.find(
-      (el) => el._id === whichIsClicked
-    );
-    const { messages } = matchingConversation;
+const Conversation = ({ whichIsClicked, conversation }) => {
+  const [matchingConversation, setMatchingConversation] = useState({});
 
-    if (messages.length) {
-      return messages.map((el, i) => (
-        <Message key={i} temp={whichIsClicked}/>
-      ));
-    } else {
-      return <div>Brak wiadomosci</div>;
-    }
-  };
+  useEffect(() => setMatchingConversation(conversation), [whichIsClicked]);
 
   return (
     <div className="conversation">
-      {conversations.length ? (
-        displayMatchingConversation()
+      {matchingConversation && matchingConversation.messages ? (
+        matchingConversation.messages.map((msg, i) => (
+          <Message key={i} msg={msg} />
+        ))
+      ) : conversation ? (
+        conversation.messages.map((msg, i) => <Message key={i} msg={msg} />)
       ) : (
-        <h1>Nie masz zadnych konwesacji</h1>
+        <div>Brak konwersacji</div>
       )}
     </div>
   );

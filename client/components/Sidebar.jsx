@@ -6,13 +6,9 @@ const Sidebar = ({
   setConversations,
   user,
   setWhichIsClicked,
+  contacts
 }) => {
-  const [contacts, setContacts] = useState([
-    { name: "Kasia", _id: "600ad7aa9e5d7a367841d341" },
-    { name: "Jan", _id: "600ad8028b0bec3a00b7c6a1" },
-    { name: "Klaudia", _id: "1" },
-  ]);
-
+ 
   const handleAddingToConversation = (member) => {
     setWhichIsClicked(member._id);
 

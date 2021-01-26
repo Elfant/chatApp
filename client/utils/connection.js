@@ -4,9 +4,23 @@ export default (path) => {
   const io = socketIoClient(path);
 
   return {
-    getMessages() {
+    getConversations(userId) {
+      io.emit("getConversations", userId);
+    },
+
+    setConversations() {
       return new Promise((resolve, reject) => {
-        io.on("sendConversation", (resp) => resolve(resp.messages));
+        io.on("sendConversations", (data) => resolve(data));
+      });
+    },
+
+    getContacts(userId) {
+      io.emit("getContacts", userId);
+    },
+
+    setContacts() {
+      return new Promise((resolve, reject) => {
+        io.on("sendContacts", (data) => resolve(data));
       });
     },
 
@@ -26,7 +40,7 @@ export default (path) => {
     },
 
     addConversation(conversation) {
-      io.emit("addConversation", conversation)
-    }
+      io.emit("addConversation", conversation);
+    },
   };
 };

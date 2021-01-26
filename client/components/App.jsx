@@ -12,15 +12,27 @@ const App = () => {
   const path = "http://localhost:3000";
 
   const [user, setUser] = useState({
-    _id: "600ad71e25785a1edcd3d58e",
-    name: "Ja",
+    _id: "600f1de9096c7e1388297f17",
+    name: "Kazik",
   }); // id comes from login page
   const [conversations, setConversations] = useState([]);
   const [whichIsClicked, setWhichIsClicked] = useState("");
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    ioClient.getConversations(user._id);
+    ioClient
+      .setConversations()
+      .then((data) => setConversations(data.userConversations));
+
+    ioClient.getContacts(user._id);
+    ioClient.setContacts().then((data) => setContacts(data.contacts));
+  }, []);
 
   return (
     <main className="container">
       <Sidebar
+        contacts={contacts}
         user={user}
         conversations={conversations}
         setConversations={setConversations}
@@ -28,10 +40,13 @@ const App = () => {
       />
       <Conversation
         whichIsClicked={whichIsClicked}
-        connection={connection}
-        conversations={conversations}
+        conversation={
+          whichIsClicked
+            ? conversations.find((el) => el._id === whichIsClicked)
+            : conversations[0]
+        }
       />
-      <MessageForm author={user} whichIsClicked={whichIsClicked}/>
+      <MessageForm author={user} whichIsClicked={whichIsClicked} />
     </main>
   );
 };

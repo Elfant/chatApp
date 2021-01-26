@@ -23,6 +23,7 @@ const MessageForm = ({whichIsClicked, author}) => {
 
   useEffect(() => {
     if (newMessage.content && newMessage.date) {
+     console.log(whichIsClicked)
       window.ioClient.sendMessage({ newMessage, currentInter: whichIsClicked });
       setNewMessage({});
     }
@@ -39,6 +40,7 @@ const MessageForm = ({whichIsClicked, author}) => {
           className="create-message__text"
         ></textarea>
         <input
+          disabled={whichIsClicked ? false : true}
           type="submit"
           value="Wyślij"
           className="create-message__button"
