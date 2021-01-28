@@ -12,13 +12,23 @@ const App = () => {
   const path = "http://localhost:3000";
 
   const [user, setUser] = useState({
-    _id: "60100ccb2aaa575a98af777f",
+    _id: "6011f6e9d20a2556b4d812b6",
     name: "Kazik",
   }); // id comes from login page
   const [conversations, setConversations] = useState([]);
-  const [currentInter, setCurrentInter] = useState("");
   const [contacts, setContacts] = useState([]);
-  const [currentOpenConversation, setCurrentOpenConversation] = useState({});
+  const [currentInter, setCurrentInter] = useState("");
+  const [currentConversation, setCurrentConversation] = useState({});
+
+  useEffect(() => {
+    if (conversations.length && currentInter) {
+      setCurrentConversation(
+        conversations.find((conv) =>
+          conv.members.some((member) => member._id === currentInter)
+        )
+      );
+    }
+  }, [currentInter, conversations]);
 
   useEffect(() => {
     // setting conversations after page loaded
@@ -28,39 +38,23 @@ const App = () => {
     // setting contacts after page loaded
     ioClient.getContacts(user._id);
     ioClient.setContacts().then((data) => setContacts(data.contacts));
-  }, []);
-
-  useEffect(() => {
-    // finding matching conversation with our interlocutor
-    const matching = conversations.find((el) =>
-      el.members.some((item) => item._id === currentInter)
-    );
-    setCurrentOpenConversation(matching);
-  }, [currentInter]);
+  }, [user]);
 
   return (
     <main className="container">
       <Sidebar
         contacts={contacts}
-        user={user}
         conversations={conversations}
         setConversations={setConversations}
-        setCurrentInter={setCurrentInter}
+        user={user}
+        inter={currentInter}
+        setInter={setCurrentInter}
       />
-      <Conversation
-        currentInter={currentInter}
-        conversation={
-          Object.keys(conversations).length
-            ? currentOpenConversation
-              ? currentOpenConversation
-              : null
-            : null
-        }
-      />
+      <Conversation />
       <MessageForm
         author={user}
         currentInter={currentInter}
-        currentOpenConversation={currentOpenConversation}
+        currentConversation={currentConversation}
       />
     </main>
   );

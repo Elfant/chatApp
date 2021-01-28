@@ -4,13 +4,15 @@ export default (path) => {
   const io = socketIoClient(path);
 
   return {
-    getConversations(userId) {
+    getConversations (userId) {
       io.emit("getConversations", userId);
     },
 
     setConversations() {
       return new Promise((resolve, reject) => {
-        io.on("sendConversations", (data) => resolve(data));
+        io.on("sendConversations", (data) => {
+          return resolve(data);
+        });
       });
     },
 
@@ -34,7 +36,7 @@ export default (path) => {
       });
     },
 
-    initConversations(members) {
+    async initConversations(members) {
       io.emit("initConversation", members);
     },
   };

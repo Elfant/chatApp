@@ -12,24 +12,21 @@ const Conversation = require("../db/models/Conversation.js");
 const mongoose = require("mongoose");
 
 // const user = new User({
-//   name: "Kazik",
-//   password: "kazik",
-//   email: "kazik@poczta.pl",
+//   name: "Kasia",
+//   password: "kasia",
+//   email: "kasia@poczta.pl",
 //   contacts: [
-//     { name: "Kasia", _id: "600cdf0a8f3a6a53482307f4" },
-//     { name: "Bartek", _id: "600cdf881a3cee1088283653" },
+//     { name: "Bartek", _id: "600cdf0a8f3a6a53482307f4" },
 //   ],
 // });
 // user.save().then(() => console.log(user));
 
-const getConversations = (id = "60100ccb2aaa575a98af777f") => {
-  return Conversation.find({ "members._id": id });
-};
+const getConversations = (id) => Conversation.find({ "members._id": id });
 
-const handleInitConversation = (members) => {
+const createNewConversation = async (members) => {
   const conversation = new Conversation({ members });
 
-  conversation.save().then((conv) =>
+  return conversation.save().then((conv) => {
     User.updateMany(
       { _id: { $in: conv.members } },
       {
@@ -37,8 +34,8 @@ const handleInitConversation = (members) => {
           conversations: conv._id,
         },
       }
-    ).catch((e) => console.log(e))
-  );
+    ).catch((e) => console.log(e));
+  });
 };
 
 const getContacts = (id) => {
@@ -56,7 +53,7 @@ const updateConversation = ({ newMessage, convId }) => {
   ).catch((e) => console.log(e));
 };
 
-//create express app
+// //create express app
 const app = express();
 const server = http.createServer(app);
 
@@ -77,25 +74,24 @@ io.on("connection", (socket) => {
     getConversations(userId).then((data) => io.emit("sendConversations", data));
   });
 
-  //sending clients contacts
+  //sending clients contacts 
   socket.on("getContacts", (userId) => {
     getContacts(userId).then((data) => io.emit("sendContacts", data));
   });
 
   // conversations for new user
-  socket.on("initConversation", (members) => {
-    handleInitConversation(members);
+  socket.on("initConversation", ({ members, id }) => {
+    createNewConversation(members).then(() =>
+      getConversations(id).then((data) => io.emit("sendConversations", data))
+    );
   });
 
   //adding new message to conversation
   socket.on("newMessage", (data) => {
+
     updateConversation(data);
   });
 
-  // // add new conversations
-  // socket.on("addConversation", (user) => {
-  //   addConversation(user);
-  // });
 });
 
 server.listen(PORT, () => console.log(`server running on ${PORT}`));

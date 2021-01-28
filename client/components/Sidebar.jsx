@@ -1,33 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Contact from "./Contact";
 
 const Sidebar = ({
   conversations,
   setConversations,
   user,
-  setCurrentInter,
   contacts,
+  setInter,
 }) => {
-  const handleAddingToConversation = (member) => {
-    setCurrentInter(member._id);
-
-    const conversationContent = {
-      _id: member._id,
-      members: [user, member],
-      messages: [],
-    };
+  const handleAddingToConversation = (contact) => {
+    setInter(contact._id);
 
     let numberOfCopy = 0;
 
-    conversations.forEach((element) => {
-      if (element.members.some((el) => el._id === member._id)) {
+    conversations.forEach((conv) => {
+      if (conv.members.some((el) => el._id === contact._id)) {
         numberOfCopy++;
-      };
+      }
     });
 
     if (numberOfCopy === 0) {
-      setConversations((prevState) => [...prevState, conversationContent]);
-      window.ioClient.initConversations([user, member]);
+      // request for new user after update
+      window.ioClient.initConversations({
+        members: [user, contact],
+        id: user._id,
+      });
+
+      window.ioClient.setConversations().then((data) => setConversations(data));
     }
   };
 

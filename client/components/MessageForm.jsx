@@ -1,36 +1,36 @@
 import React, { useEffect, useState } from "react";
-import socketIoClient from "socket.io-client";
 import moment from "moment";
 
-const MessageForm = ({ currentInter, author, currentOpenConversation }) => {
+const MessageForm = ({ currentInter, author, currentConversation }) => {
   const [inputValue, setInputValue] = useState("");
 
   const [newMessage, setNewMessage] = useState({});
+
+  // sending message after submit
+  useEffect(() => {
+    if (Object.keys(newMessage).length) {
+      window.ioClient.sendMessage(newMessage);
+
+      setNewMessage({});
+    }
+  }, [newMessage]);
 
   //Creating and sending message
   const handleSubmit = (e) => {
     e.preventDefault();
 
     setNewMessage(() => ({
-      author: author.name,
-      authorId: author._id,
-      content: inputValue,
-      date: moment.now(),
+      convId: currentConversation._id,
+      newMessage: {
+        author: author.name,
+        authorId: author._id,
+        content: inputValue,
+        date: moment.now(),
+      },
     }));
 
     setInputValue("");
   };
-
-  useEffect(() => {
-    if (newMessage.content && newMessage.date) {
-      console.log(currentInter);
-      window.ioClient.sendMessage({
-        newMessage,
-        convId: currentOpenConversation._id,
-      });
-      setNewMessage({});
-    }
-  }, [newMessage]);
 
   return (
     <div className="conversation__create-message create-message">
@@ -42,12 +42,14 @@ const MessageForm = ({ currentInter, author, currentOpenConversation }) => {
           placeholder="Wpisz wiadomość"
           className="create-message__text"
         ></textarea>
-        <input
-          disabled={currentInter ? false : true}
+        <button
+          disabled={!currentInter ? true : false}
           type="submit"
           value="Wyślij"
           className="create-message__button"
-        ></input>
+        >
+          Wyślij
+        </button>
       </form>
     </div>
   );
