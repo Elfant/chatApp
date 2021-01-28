@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 
-const MessageForm = ({ currentInter, author, currentConversation }) => {
+const MessageForm = ({
+  currentInter,
+  author,
+  currentConversation,
+  setCurrentConversation,
+}) => {
   const [inputValue, setInputValue] = useState("");
 
   const [newMessage, setNewMessage] = useState({});
@@ -12,6 +17,10 @@ const MessageForm = ({ currentInter, author, currentConversation }) => {
       window.ioClient.sendMessage(newMessage);
 
       setNewMessage({});
+      setCurrentConversation((prevState) => ({
+        ...prevState,
+        messages: [...prevState.messages, { ...newMessage.newMessage }],
+      }));
     }
   }, [newMessage]);
 

@@ -4,6 +4,8 @@ import connection from "../utils/connection";
 import Sidebar from "./Sidebar";
 import Conversation from "./Conversation";
 import MessageForm from "./MessageForm";
+import Login from "./Login";
+import { SocketProvider } from "../context/SocketContext";
 
 window.ioClient = connection();
 const { ioClient } = window;
@@ -41,22 +43,37 @@ const App = () => {
   }, [user]);
 
   return (
-    <main className="container">
-      <Sidebar
-        contacts={contacts}
-        conversations={conversations}
-        setConversations={setConversations}
-        user={user}
-        inter={currentInter}
-        setInter={setCurrentInter}
-      />
-      <Conversation />
-      <MessageForm
-        author={user}
-        currentInter={currentInter}
-        currentConversation={currentConversation}
-      />
-    </main>
+    <SocketProvider>
+      {/* <Login /> ? <Login/> : */}
+      <main className="container">
+        <Sidebar
+          contacts={contacts}
+          conversations={conversations}
+          setConversations={setConversations}
+          user={user}
+          inter={currentInter}
+          setInter={setCurrentInter}
+        />
+        <Conversation
+          currentOpen={currentConversation}
+          conversation={
+            currentConversation
+              ? Object.keys(conversations).length
+                ? currentConversation
+                : conversations[0]
+                ? conversations[0]
+                : []
+              : []
+          }
+        />
+        <MessageForm
+          author={user}
+          currentInter={currentInter}
+          currentConversation={currentConversation}
+          setCurrentConversation={setCurrentConversation}
+        />
+      </main>
+    </SocketProvider>
   );
 };
 
