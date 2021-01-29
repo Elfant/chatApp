@@ -22,7 +22,7 @@ const Sidebar = ({
     if (numberOfCopy === 0) {
       // request for new user after update
       window.ioClient.initConversations({
-        members: [user, contact],
+        members: [{ _id: user._id, name: user.name }, contact],
         id: user._id,
       });
 

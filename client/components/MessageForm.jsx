@@ -5,7 +5,8 @@ const MessageForm = ({
   currentInter,
   author,
   currentConversation,
-  setCurrentConversation,
+  setConversations,
+  conversations,
 }) => {
   const [inputValue, setInputValue] = useState("");
 
@@ -15,12 +16,21 @@ const MessageForm = ({
   useEffect(() => {
     if (Object.keys(newMessage).length) {
       window.ioClient.sendMessage(newMessage);
+      window.ioClient.getMessage().then((i) => console.log(i));
 
       setNewMessage({});
-      setCurrentConversation((prevState) => ({
-        ...prevState,
-        messages: [...prevState.messages, { ...newMessage.newMessage }],
-      }));
+
+      const index = conversations.findIndex(
+        (el) => el._id === currentConversation._id
+      );
+      // setConversations((prevState) => {
+      //   return [
+      //     ...prevState,
+      //     ptrvff[index].messages[{ ...prevState }, newMessage],
+      //   ];
+      // });
+      window.ioClient.getConversations();
+      window.ioClient.setConversations().then((data) => setConversations(data));
     }
   }, [newMessage]);
 
@@ -37,7 +47,6 @@ const MessageForm = ({
         date: moment.now(),
       },
     }));
-
     setInputValue("");
   };
 

@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
 import Message from "./Message";
 
-const Conversation = ({ conversation, currentOpen }) => {
+const Conversation = ({ conversation, currentInter }) => {
   const [messages, setMessages] = useState([]);
+
   useEffect(() => {
-    setMessages(conversation.messages);
-  }, [conversation, currentOpen]);
+    if (conversation) {
+      setMessages(conversation.messages);
+    }
+  }, [conversation, currentInter]);
 
   return (
     <div className="conversation">
-      {messages ? (
-        messages.map((msg, i) => <Message key={i} msg={msg} />)
+      {conversation ? (
+        messages.length ? (
+          messages.map((msg, i) => <Message key={i} msg={msg} />)
+        ) : (
+          <p>Brak wiadomosci</p>
+        )
       ) : (
-        <div>brak konwersacji</div>
+        <div>Brak Konwersacji</div>
       )}
     </div>
   );

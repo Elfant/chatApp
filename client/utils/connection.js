@@ -1,11 +1,12 @@
 import socketIoClient from "socket.io-client";
 
-export default (path) => {
+export default (path, id) => {
+  console.log(id)
   const io = socketIoClient(path);
 
   return {
-    getConversations (userId) {
-      io.emit("getConversations", userId);
+    getConversations () {
+      io.emit("getConversations", id);
     },
 
     setConversations() {
@@ -16,8 +17,8 @@ export default (path) => {
       });
     },
 
-    getContacts(userId) {
-      io.emit("getContacts", userId);
+    getContacts() {
+      io.emit("getContacts", id);
     },
 
     setContacts() {
@@ -30,9 +31,9 @@ export default (path) => {
       io.emit("newMessage", content);
     },
 
-    updateMessages() {
+    getMessage() {
       return new Promise((resolve, reject) => {
-        io.on("newMessage", (resp) => resolve(resp));
+        io.on("sendNewMessage", (resp) => resolve(resp));
       });
     },
 

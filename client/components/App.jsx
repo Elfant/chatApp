@@ -1,79 +1,68 @@
 import React, { useState, useEffect } from "react";
-import connection from "../utils/connection";
 
 import Sidebar from "./Sidebar";
 import Conversation from "./Conversation";
 import MessageForm from "./MessageForm";
 import Login from "./Login";
-import { SocketProvider } from "../context/SocketContext";
-
-window.ioClient = connection();
-const { ioClient } = window;
 
 const App = () => {
-  const path = "http://localhost:3000";
-
-  const [user, setUser] = useState({
-    _id: "6011f6e9d20a2556b4d812b6",
-    name: "Kazik",
-  }); // id comes from login page
   const [conversations, setConversations] = useState([]);
-  const [contacts, setContacts] = useState([]);
+  const [user, setUser] = useState({}); // id comes from login page
   const [currentInter, setCurrentInter] = useState("");
-  const [currentConversation, setCurrentConversation] = useState({});
+  const [currentConversation, setCurrentConversation] = useState();
+  const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
-    if (conversations.length && currentInter) {
-      setCurrentConversation(
-        conversations.find((conv) =>
-          conv.members.some((member) => member._id === currentInter)
-        )
-      );
+    if (conversations.length) {
+      if (currentInter) {
+        setCurrentConversation(
+          conversations.find((conv) =>
+            conv.members.some((member) => member._id === currentInter)
+          )
+        );
+      } else {
+        setCurrentConversation(conversations[0]);
+      }
     }
   }, [currentInter, conversations]);
 
   useEffect(() => {
     // setting conversations after page loaded
-    ioClient.getConversations(user._id);
-    ioClient.setConversations().then((data) => setConversations(data));
-
-    // setting contacts after page loaded
-    ioClient.getContacts(user._id);
-    ioClient.setContacts().then((data) => setContacts(data.contacts));
+    if (Object.entries(user).length) {
+      setConversations(user.conversations);
+      setContacts(user.contacts);
+    }
   }, [user]);
 
   return (
-    <SocketProvider>
-      {/* <Login /> ? <Login/> : */}
-      <main className="container">
-        <Sidebar
-          contacts={contacts}
-          conversations={conversations}
-          setConversations={setConversations}
-          user={user}
-          inter={currentInter}
-          setInter={setCurrentInter}
-        />
-        <Conversation
-          currentOpen={currentConversation}
-          conversation={
-            currentConversation
-              ? Object.keys(conversations).length
-                ? currentConversation
-                : conversations[0]
-                ? conversations[0]
-                : []
-              : []
-          }
-        />
-        <MessageForm
-          author={user}
-          currentInter={currentInter}
-          currentConversation={currentConversation}
-          setCurrentConversation={setCurrentConversation}
-        />
-      </main>
-    </SocketProvider>
+    <>
+      {Object.entries(user).length ? (
+        <main className="container">
+          <Sidebar
+            contacts={contacts}
+            conversations={conversations}
+            setConversations={setConversations}
+            user={user}
+            inter={currentInter}
+            setInter={setCurrentInter}
+          />
+          <Conversation
+            currentInter={currentInter}
+            conversation={currentConversation ? currentConversation : null}
+          />
+          <MessageForm
+            setConversations={setConversations}
+            conversations={conversations}
+            author={{ name: user._id, user: user.name }}
+            currentInter={currentInter}
+            currentConversation={currentConversation}
+            setCurrentConversation={setCurrentConversation}
+          />
+        </main>
+      ) : (
+        <Login setUser={setUser} />
+      )}
+    </>
   );
 };
 

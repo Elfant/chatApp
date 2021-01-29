@@ -1,15 +1,35 @@
 import React, { useState } from "react";
-const Login = () => {
+
+import connection from "../utils/connection";
+
+const Login = ({ setUser }) => {
   const [nameValue, setNameValue] = useState("");
   const [password, setPasswordValue] = useState("");
+  // const [formData, setFormData] = useStat({});
 
   const handleField = (e, callback) => {
     callback(e.target.value);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const fetchUser = async () => {
+      const resp = await fetch(`/user?name=${nameValue}&&password=${password}`);
+      const user = await resp.json();
+
+      if (Object.entries(user).length) {
+        setUser(user);
+        window.ioClient = connection("http://localhost:3000", user._id);
+      }
+    };
+
+    fetchUser();
+  };
+
   return (
     <main className="login">
-      <form className="login__form">
+      <form className="login__form" onSubmit={handleSubmit}>
         <label>
           login
           <input

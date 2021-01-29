@@ -21,7 +21,9 @@ const mongoose = require("mongoose");
 // });
 // user.save().then(() => console.log(user));
 
-const getConversations = (id) => Conversation.find({ "members._id": id });
+const getConversations = async (id) => {
+  return Conversation.find({ "members._id": id });
+};
 
 const createNewConversation = async (members) => {
   const conversation = new Conversation({ members });
@@ -67,14 +69,27 @@ const io = socket(server, {
 const disPath = path.join(__dirname, "../dist");
 app.use(express.static(disPath));
 
+
+//send data when user login
+app.get("/user", (req, resp) => {
+  User.findOne({name: req.query.name,}).then(({ name, contacts, _id }) => {
+    const id = _id.toString();
+    getConversations(id).then((conversations) => {
+      resp.send({ conversations, name, contacts, _id });
+    });
+  });
+});
+
 //handle connection with client
 io.on("connection", (socket) => {
   //sending clents conversations
   socket.on("getConversations", (userId) => {
-    getConversations(userId).then((data) => io.emit("sendConversations", data));
+    getConversations("6011f75a8ff2c83b50046657").then((data) =>
+      io.emit("sendConversations", data)
+    );
   });
 
-  //sending clients contacts 
+  //sending clients contacts
   socket.on("getContacts", (userId) => {
     getContacts(userId).then((data) => io.emit("sendContacts", data));
   });
@@ -88,10 +103,9 @@ io.on("connection", (socket) => {
 
   //adding new message to conversation
   socket.on("newMessage", (data) => {
-
-    updateConversation(data);
+    updateConversation(data)
+    io.emit("sendNewMessage", data.newMessage);
   });
-
 });
 
 server.listen(PORT, () => console.log(`server running on ${PORT}`));
