@@ -1,11 +1,10 @@
 import socketIoClient from "socket.io-client";
 
 export default (path, id) => {
-  console.log(id)
-  const io = socketIoClient(path);
+  const io = socketIoClient(path, { query: { id } });
 
   return {
-    getConversations () {
+    getConversations() {
       io.emit("getConversations", id);
     },
 

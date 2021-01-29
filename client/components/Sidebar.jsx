@@ -33,13 +33,14 @@ const Sidebar = ({
   return (
     <div className="sidebar">
       <div className="sidebar__buttons-group">
-        <h3>Kontakty</h3>
+        <h3>Kontakty {user.name}</h3>
       </div>
       <div className="sidebar__content">
         <div className="sidebar__list">
           <ul>
             {contacts.map((contact) => (
               <Contact
+                name={user.name}
                 contact={contact}
                 addConversation={handleAddingToConversation}
                 key={contact._id}

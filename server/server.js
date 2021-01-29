@@ -21,11 +21,11 @@ const mongoose = require("mongoose");
 // });
 // user.save().then(() => console.log(user));
 
-const getConversations = async (id) => {
+const getConversations = (id) => {
   return Conversation.find({ "members._id": id });
 };
 
-const createNewConversation = async (members) => {
+const createNewConversation = (members) => {
   const conversation = new Conversation({ members });
 
   return conversation.save().then((conv) => {
@@ -45,7 +45,7 @@ const getContacts = (id) => {
 };
 
 const updateConversation = ({ newMessage, convId }) => {
-  Conversation.updateOne(
+  return Conversation.findOneAndUpdate(
     { _id: convId },
     {
       $push: {
@@ -69,11 +69,11 @@ const io = socket(server, {
 const disPath = path.join(__dirname, "../dist");
 app.use(express.static(disPath));
 
-
 //send data when user login
 app.get("/user", (req, resp) => {
-  User.findOne({name: req.query.name,}).then(({ name, contacts, _id }) => {
+  User.findOne({ name: req.query.name }).then(({ name, contacts, _id }) => {
     const id = _id.toString();
+
     getConversations(id).then((conversations) => {
       resp.send({ conversations, name, contacts, _id });
     });
@@ -82,11 +82,12 @@ app.get("/user", (req, resp) => {
 
 //handle connection with client
 io.on("connection", (socket) => {
-  //sending clents conversations
+  const id = socket.handshake.query.id;
+  socket.join(id);
+
+  //sending clients conversations
   socket.on("getConversations", (userId) => {
-    getConversations("6011f75a8ff2c83b50046657").then((data) =>
-      io.emit("sendConversations", data)
-    );
+    getConversations(userId).then((data) => io.emit("sendConversations", data));
   });
 
   //sending clients contacts
@@ -102,9 +103,22 @@ io.on("connection", (socket) => {
   });
 
   //adding new message to conversation
-  socket.on("newMessage", (data) => {
-    updateConversation(data)
-    io.emit("sendNewMessage", data.newMessage);
+  socket.on("newMessage", (message) => {
+    updateConversation(message).then((data) => {
+      const { newMessage } = message;
+
+      data.messages.push(newMessage);
+
+      const otherMembers = data.members.filter(
+        (member) => member._id !== newMessage.author
+      );
+
+      socket.emit("sendNewMessage", data);
+
+      data.members.forEach((item) => {
+        socket.broadcast.to(item._id).emit("sendNewMessage", data);
+      });
+    });
   });
 });
 

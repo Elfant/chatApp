@@ -5,7 +5,6 @@ import connection from "../utils/connection";
 const Login = ({ setUser }) => {
   const [nameValue, setNameValue] = useState("");
   const [password, setPasswordValue] = useState("");
-  // const [formData, setFormData] = useStat({});
 
   const handleField = (e, callback) => {
     callback(e.target.value);

@@ -27,6 +27,20 @@ const App = () => {
   }, [currentInter, conversations]);
 
   useEffect(() => {
+    if (window.ioClient) {
+      window.ioClient.getMessage().then((data) => {
+        setConversations((prevState) => {
+          const newState = prevState.filter((a) => {
+            return a._id !== data._id;
+          });
+          newState.push(data);
+          return newState;
+        });
+      });
+    }
+  });
+
+  useEffect(() => {
     // setting conversations after page loaded
     if (Object.entries(user).length) {
       setConversations(user.conversations);
@@ -47,13 +61,14 @@ const App = () => {
             setInter={setCurrentInter}
           />
           <Conversation
+            conversatios={conversations}
             currentInter={currentInter}
             conversation={currentConversation ? currentConversation : null}
           />
           <MessageForm
             setConversations={setConversations}
             conversations={conversations}
-            author={{ name: user._id, user: user.name }}
+            author={{ authorId: user._id, authorName: user.name }}
             currentInter={currentInter}
             currentConversation={currentConversation}
             setCurrentConversation={setCurrentConversation}

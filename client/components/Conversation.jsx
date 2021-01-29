@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Message from "./Message";
 
-const Conversation = ({ conversation, currentInter }) => {
+const Conversation = ({ conversation, currentInter, conversations }) => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
