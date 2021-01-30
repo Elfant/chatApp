@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 
-const MessageForm = ({
-  currentInter,
-  author,
-  currentConversation,
-}) => {
+const MessageForm = ({ currentInter, author, currentConversation }) => {
   const [inputValue, setInputValue] = useState("");
 
   const [newMessage, setNewMessage] = useState({});

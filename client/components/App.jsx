@@ -64,6 +64,7 @@ const App = () => {
               setInter={setCurrentInter}
             />
             <Conversation
+              user={user}
               conversatios={conversations}
               currentInter={currentInter}
               conversation={currentConversation ? currentConversation : null}

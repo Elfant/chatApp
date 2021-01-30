@@ -1,25 +1,18 @@
 .conversation {
   flex: 3;
-  background-color: white;
+  background-color: $white;
   display: flex;
-  position: relative;
-
-  // flex-wrap: wrap;
   flex-direction: column;
-
   position: relative;
-  // padding-top: $spacing-x2;
 
   &__messages {
-    // flex: 100%;
-    padding: 0 $spacing-x2;
-    transform: translateX($spacing-x2);
+    padding: 0 $spacing-x3 $spacing-x3;
+    transform: translateX($spacing-x3);
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
     text-align: right;
     align-items: flex-end;
     justify-content: space-between;
-    
   }
 }

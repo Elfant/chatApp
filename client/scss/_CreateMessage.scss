@@ -1,21 +1,21 @@
 .create-message {
-  position: relative;
-  // margin-top: 1;
-  // bottom: 0;
-  background-color: #BCBCBC;
+  position: absolute;
+  bottom: 0;
+  background-color: $grey;
+  width: 100%;
 
   &__form {
     display: flex;
   }
 
   &__text {
+    padding-top: $spacing-x1;
+    font-size: $basic-font-size;
     flex: 1;
-    width: 100%;
     padding: $spacing-x1 0 0 $spacing-x1;
-    resize: none; 
-    background-color: #BCBCBC;
+    resize: none;
+    background-color: $grey;
     border: none;
     outline: none;
-    font-size: 16px;
   }
 }

@@ -48,7 +48,9 @@ const Login = ({ setUser }) => {
           />
         </label>
         <label>
-          <button type="submit" className="login__button button">Zaloguj sie</button>
+          <button type="submit" className="login__button button">
+            Zaloguj sie
+          </button>
         </label>
       </form>
     </main>

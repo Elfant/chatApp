@@ -1,8 +1,8 @@
 .navbar {
-  background-color: #212121;
   padding: $spacing-x2;
   display: flex;
   justify-content: space-between;
+  background-color: $black;
 
   &__logo {
     width: 150px;
@@ -23,7 +23,7 @@
 }
 
 #navbar-button {
-  background-color: #212121;
+  background-color: $black;
   border: 0px solid black;
   height: 50px;
   width: 50px;

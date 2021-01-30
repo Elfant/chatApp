@@ -1,7 +1,27 @@
 .message {
-  background-color: #9B0000;
-  margin: $spacing-x2 0;
-  color: #fff;
+  background-color: $red;
+  margin: $spacing-x2 $spacing-x2 $spacing-x2 0;
+  color: $white;
   border-radius: 10px;
-  padding: $spacing-x1 $spacing-x1;
+  padding: $spacing-x2 $spacing-x2;
+  text-align: justify;
+  max-width: 300px;
+  overflow-wrap: break-word;
+
+  @media (min-width: 768px) {
+    max-width: 500px;
+  }
+
+  &--incoming-message {
+    background-color: $grey;
+    align-self: start;
+    color: #000;
+    text-align: left;
+  }
+
+  &__content {
+    font-size: $basic-font-size;
+    font-weight: bolder;
+    margin-bottom: $spacing-x1;
+  }
 }

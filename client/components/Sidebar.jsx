@@ -7,6 +7,7 @@ const Sidebar = ({
   user,
   contacts,
   setInter,
+  inter,
 }) => {
   const handleAddingToConversation = (contact) => {
     setInter(contact._id);
@@ -32,14 +33,15 @@ const Sidebar = ({
 
   return (
     <aside className="sidebar">
-      <div className="sidebar__buttons-group">
-        <h3>Kontakty {user.name}</h3>
+      <div className="sidebar__header">
+        <h3>Zalogowano jako: {user.name}</h3>
       </div>
       <div className="sidebar__content">
-        <div className="sidebar__list">
-          <ul>
+        <div>
+          <ul className="sidebar__list">
             {contacts.map((contact) => (
               <Contact
+                inter={inter}
                 name={user.name}
                 contact={contact}
                 addConversation={handleAddingToConversation}

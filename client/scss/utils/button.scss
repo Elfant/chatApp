@@ -1,14 +1,11 @@
 .button {
-  padding: $spacing-x3 $spacing-x5;
+  cursor: pointer;
+  font-size: $basic-font-size;
+  text-transform: uppercase;
+  padding: $spacing-x1 $spacing-x3;
   color: white;
-  background-image: linear-gradient(
-    to right,
-    black 0%,
-    black 51%,
-    #9b0000 100%
-  );
-  border: 1px solid black;
-  border-radius: 30px;
+  background-image: linear-gradient(to right, #000 0%, #000 51%, $red 100%);
+  border: 1px solid #000;
   transition: 0.3s;
   background-size: 200% auto;
   outline: none;
@@ -16,6 +13,14 @@
   &:hover {
     color: white;
     background-position: right center;
-    box-shadow: 0 0 10px black;
+    box-shadow: 0 0 10px #000;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+  }
+
+  &[disabled]:hover {
+    box-shadow: none;
   }
 }
