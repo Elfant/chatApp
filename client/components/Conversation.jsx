@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Message from "./Message";
 
-const Conversation = ({ conversation, currentInter, conversations }) => {
+const Conversation = ({
+  conversation,
+  currentInter,
+  conversations,
+  children,
+}) => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -11,17 +16,20 @@ const Conversation = ({ conversation, currentInter, conversations }) => {
   }, [conversation, currentInter]);
 
   return (
-    <div className="conversation">
-      {conversation ? (
-        messages.length ? (
-          messages.map((msg, i) => <Message key={i} msg={msg} />)
+    <section className="conversation">
+      <div className="conversation__messages">
+        {conversation ? (
+          messages.length ? (
+            messages.map((msg, i) => <Message key={i} msg={msg} />)
+          ) : (
+            <p>Brak wiadomosci</p>
+          )
         ) : (
-          <p>Brak wiadomosci</p>
-        )
-      ) : (
-        <div>Brak Konwersacji</div>
-      )}
-    </div>
+          <div>Brak Konwersacji</div>
+        )}
+      </div>
+      {children}
+    </section>
   );
 };
 

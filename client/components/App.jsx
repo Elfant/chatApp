@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import Conversation from "./Conversation";
 import MessageForm from "./MessageForm";
@@ -52,27 +53,31 @@ const App = () => {
     <>
       {Object.entries(user).length ? (
         <main className="container">
-          <Sidebar
-            contacts={contacts}
-            conversations={conversations}
-            setConversations={setConversations}
-            user={user}
-            inter={currentInter}
-            setInter={setCurrentInter}
-          />
-          <Conversation
-            conversatios={conversations}
-            currentInter={currentInter}
-            conversation={currentConversation ? currentConversation : null}
-          />
-          <MessageForm
-            setConversations={setConversations}
-            conversations={conversations}
-            author={{ authorId: user._id, authorName: user.name }}
-            currentInter={currentInter}
-            currentConversation={currentConversation}
-            setCurrentConversation={setCurrentConversation}
-          />
+          <Navbar />
+          <div className="container__wrapper">
+            <Sidebar
+              contacts={contacts}
+              conversations={conversations}
+              setConversations={setConversations}
+              user={user}
+              inter={currentInter}
+              setInter={setCurrentInter}
+            />
+            <Conversation
+              conversatios={conversations}
+              currentInter={currentInter}
+              conversation={currentConversation ? currentConversation : null}
+            >
+            <MessageForm
+              setConversations={setConversations}
+              conversations={conversations}
+              author={{ authorId: user._id, authorName: user.name }}
+              currentInter={currentInter}
+              currentConversation={currentConversation}
+              setCurrentConversation={setCurrentConversation}
+            />
+            </Conversation>
+          </div>
         </main>
       ) : (
         <Login setUser={setUser} />

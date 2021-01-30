@@ -1,14 +1,21 @@
 @import "./_variables";
 
+@import "./utils/button.scss";
+
+@import "./Navbar";
+@import "./Message";
 @import "./_Conversations";
 @import "./_Sidebar";
 @import "./_CreateMessage";
 @import "./Login";
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', sans-serif;
 };
 
 body {
@@ -16,6 +23,14 @@ body {
 }
 
 .container {
+  overflow: hidden;
   height: 100vh;
   display: flex;
+  flex-direction: column;
+
+  &__wrapper {
+    height: 90vh;
+    flex: 1;
+    display: flex;
+  }
 }

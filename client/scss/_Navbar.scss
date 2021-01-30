@@ -1,0 +1,31 @@
+.navbar {
+  background-color: #212121;
+  padding: $spacing-x2;
+  display: flex;
+  justify-content: space-between;
+
+  &__logo {
+    width: 150px;
+    height: 60px;
+
+    @media (min-width: 768px) {
+      width: 200px;
+      height: 70px;
+    }
+  }
+
+  &__hamburger {
+    @media (min-width: 768px) {
+      display: none;
+    }
+    margin: $spacing-x1 0;
+  }
+}
+
+#navbar-button {
+  background-color: #212121;
+  border: 0px solid black;
+  height: 50px;
+  width: 50px;
+  outline: none;
+}

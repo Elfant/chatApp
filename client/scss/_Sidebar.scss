@@ -1,20 +1,10 @@
 .sidebar {
   flex: 1;
-  position: relative;
+  background-color: #484848;
+  display: flex;
+  flex-direction: column;
 
-  &__buttons-group {
-    display: flex;
-  }
-
-  &__button {
-    flex: 1;
-    padding: 20px 0;
-  }
-
-  &__button-new {
-    width: 100%;
-    height: 52px;
-    position: absolute;
-    bottom: 0;
+  &__content {
+    padding: $spacing-x4 0;
   }
 }

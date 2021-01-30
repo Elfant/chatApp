@@ -31,7 +31,7 @@ const Sidebar = ({
   };
 
   return (
-    <div className="sidebar">
+    <aside className="sidebar">
       <div className="sidebar__buttons-group">
         <h3>Kontakty {user.name}</h3>
       </div>
@@ -49,7 +49,7 @@ const Sidebar = ({
           </ul>
         </div>
       </div>
-    </div>
+    </aside>
   );
 };
 

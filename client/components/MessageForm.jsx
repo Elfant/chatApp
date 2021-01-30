@@ -48,7 +48,7 @@ const MessageForm = ({
           disabled={!currentInter ? true : false}
           type="submit"
           value="Wyślij"
-          className="create-message__button"
+          className="create-message__button button"
         >
           Wyślij
         </button>
