@@ -28,17 +28,19 @@ const Login = ({ setUser }) => {
 
   return (
     <main className="login">
+      <div className="login__logo"></div>
       <form className="login__form" onSubmit={handleSubmit}>
-        <label>
-          login
+        <div className="login__wrapper">
+          <h5 className="login__name-header">Login</h5>
           <input
             onChange={(e) => handleField(e, setNameValue)}
             value={nameValue}
             className="login__name"
             type="text"
+            placeholder="np.: Bartek, Kasia, Kazik"
           ></input>
-        </label>
-        <label>
+        </div>
+        {/* <label>
           haslo
           <input
             onChange={(e) => handleField(e, setPasswordValue)}
@@ -46,10 +48,10 @@ const Login = ({ setUser }) => {
             className="login__name"
             type="password"
           />
-        </label>
+        </label> */}
         <label>
           <button type="submit" className="login__button button">
-            Zaloguj sie
+            Zaloguj się
           </button>
         </label>
       </form>
