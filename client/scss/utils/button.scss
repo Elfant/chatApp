@@ -4,8 +4,8 @@
   text-transform: uppercase;
   padding: $spacing-x1 $spacing-x3;
   color: white;
-  background-image: linear-gradient(to right, #000 0%, #000 51%, $red 100%);
-  border: 1px solid #000;
+  background-image: linear-gradient(to right, $black 0%, $black 51%, $red 100%);
+  border: 1px solid $black;
   transition: 0.3s;
   background-size: 200% auto;
   outline: none;
@@ -13,7 +13,7 @@
   &:hover {
     color: white;
     background-position: right center;
-    box-shadow: 0 0 10px #000;
+    box-shadow: 0 0 10px $black;
   }
 
   &:disabled {

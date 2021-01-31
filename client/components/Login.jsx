@@ -37,7 +37,7 @@ const Login = ({ setUser }) => {
             value={nameValue}
             className="login__name"
             type="text"
-            placeholder="np.: Bartek, Kasia, Kazik"
+            placeholder="np: Mariusz, Kasia, Kazik"
           ></input>
         </div>
         {/* <label>

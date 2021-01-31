@@ -12,11 +12,13 @@ const Conversation = require("../db/models/Conversation.js");
 const mongoose = require("mongoose");
 
 // const user = new User({
-//   name: "Kasia",
-//   password: "kasia",
-//   email: "kasia@poczta.pl",
+//   name: "Mariusz",
+//   password: "mariusz",
+//   email: "mariusz@poczta.pl",
 //   contacts: [
-//     { name: "Bartek", _id: "600cdf0a8f3a6a53482307f4" },
+//     { name: "Bartek", _id: "6011f7388ef0424084761b86" },
+//     { name: "Kasia", _id: "6011f75a8ff2c83b50046657" },
+//     { name: "Kazik", _id: "6011f6e9d20a2556b4d812b6" },
 //   ],
 // });
 // user.save().then(() => console.log(user));
