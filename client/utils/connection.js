@@ -30,13 +30,13 @@ export default (path, id) => {
       io.emit("newMessage", content);
     },
 
-    getMessage() {
+    async getMessage() {
       return new Promise((resolve, reject) => {
         io.on("sendNewMessage", (resp) => resolve(resp));
       });
     },
 
-    async initConversations(members) {
+    initConversations(members) {
       io.emit("initConversation", members);
     },
   };
