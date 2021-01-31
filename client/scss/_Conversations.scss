@@ -7,8 +7,8 @@
  
 
   &__messages {
+    flex: 1;
     padding: 0 $spacing-x2;
-    // transform: translateX($spacing-x3);
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
