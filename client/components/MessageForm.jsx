@@ -18,6 +18,10 @@ const MessageForm = ({ currentInter, author, currentConversation }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (inputValue === "" || inputValue.match("^\\s+$")) {
+      return;
+    }
+
     setNewMessage(() => ({
       convId: currentConversation._id,
       newMessage: {
@@ -27,6 +31,7 @@ const MessageForm = ({ currentInter, author, currentConversation }) => {
         date: moment.now(),
       },
     }));
+
     setInputValue("");
   };
 
