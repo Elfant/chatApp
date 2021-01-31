@@ -1,0 +1,10 @@
+<svg 
+  id="menu_open-24px_2_" 
+  data-name="menu_open-24px (2)" 
+  xmlns="http://www.w3.org/2000/svg" 
+  width="53" height="56" 
+  viewBox="0 0 60 60"
+>
+  <path id="Path_1" data-name="Path 1" d="M0,0H24V24H0Z" fill="none"/>
+  <path id="Path_2" data-name="Path 2" d="M3,56H39.111V47.667H3ZM3,35.167H30.778V26.833H3ZM3,6v8.333H39.111V6ZM53,45.958,43.056,31,53,16.042l-3.917-5.875L35.194,31,49.083,51.833Z" fill="#fff"/>
+</svg>

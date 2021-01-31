@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Contact from "./Contact";
 
 const Sidebar = ({
@@ -8,9 +8,14 @@ const Sidebar = ({
   contacts,
   setInter,
   inter,
+  isMenuOpen,
+  setIsMenuOpen,
 }) => {
   const handleAddingToConversation = (contact) => {
     setInter(contact._id);
+    if (window.innerWidth < 1024) {
+      setIsMenuOpen(!isMenuOpen);
+    }
 
     let numberOfCopy = 0;
 
@@ -32,7 +37,7 @@ const Sidebar = ({
   };
 
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${isMenuOpen ? "sidebar--open-on-mobile" : ""}`}>
       <div className="sidebar__header">
         <h3>Zalogowano jako: {user.name}</h3>
       </div>

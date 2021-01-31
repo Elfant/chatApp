@@ -4,10 +4,11 @@
   display: flex;
   flex-direction: column;
   position: relative;
+ 
 
   &__messages {
-    padding: 0 $spacing-x3 $spacing-x3;
-    transform: translateX($spacing-x3);
+    padding: 0 $spacing-x2;
+    // transform: translateX($spacing-x3);
     overflow-y: scroll;
     display: flex;
     flex-direction: column;

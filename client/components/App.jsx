@@ -12,6 +12,7 @@ const App = () => {
   const [currentInter, setCurrentInter] = useState("");
   const [currentConversation, setCurrentConversation] = useState();
   const [contacts, setContacts] = useState([]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     if (conversations.length) {
@@ -53,7 +54,7 @@ const App = () => {
     <>
       {Object.entries(user).length ? (
         <main className="container">
-          <Navbar />
+          <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}/>
           <div className="container__wrapper">
             <Sidebar
               contacts={contacts}
@@ -62,8 +63,11 @@ const App = () => {
               user={user}
               inter={currentInter}
               setInter={setCurrentInter}
+              isMenuOpen={isMenuOpen}
+              setIsMenuOpen={setIsMenuOpen}
             />
             <Conversation
+              isMenuOpen={isMenuOpen}
               user={user}
               conversatios={conversations}
               currentInter={currentInter}

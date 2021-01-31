@@ -1,7 +1,6 @@
 .sidebar {
-  flex: 1;
+  display: none;
   background-color: #484848;
-  display: flex;
   flex-direction: column;
 
   &__content {
@@ -40,5 +39,16 @@
 
   &__contact {
     margin: $spacing-x3;
+  }
+
+  @media (min-width: 1024px) {
+    display: flex;
+    flex: 1;
+  }
+
+  &--open-on-mobile {
+    display: flex;
+    flex: 100%;
+    text-align: center;
   }
 }

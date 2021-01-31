@@ -1,12 +1,13 @@
 .message {
   background-color: $red;
-  margin: $spacing-x2 $spacing-x2 $spacing-x2 0;
+  margin: $spacing-x2 0 $spacing-x2 0;
   color: $white;
   border-radius: 5px;
   padding: $spacing-x2 $spacing-x2;
   text-align: justify;
   max-width: 300px;
   overflow-wrap: break-word;
+  text-align: right;
 
   @media (min-width: 768px) {
     max-width: 500px;

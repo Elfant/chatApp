@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Message from "./Message";
 
-const Conversation = ({ conversation, currentInter, user, children }) => {
+const Conversation = ({
+  conversation,
+  currentInter,
+  user,
+  children,
+  isMenuOpen,
+}) => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -12,18 +18,24 @@ const Conversation = ({ conversation, currentInter, user, children }) => {
 
   return (
     <section className="conversation">
-      <div className="conversation__messages">
-        {conversation ? (
-          messages.length ? (
-            messages.map((msg, i) => <Message user={user} key={i} msg={msg} />)
-          ) : (
-            <p>Brak wiadomosci</p>
-          )
-        ) : (
-          <div>Brak Konwersacji</div>
-        )}
-      </div>
-      {children}
+      {isMenuOpen ? null : (
+        <>
+          <div className="conversation__messages">
+            {conversation ? (
+              messages.length ? (
+                messages.map((msg, i) => (
+                  <Message user={user} key={i} msg={msg} />
+                ))
+              ) : (
+                <p>Brak wiadomosci</p>
+              )
+            ) : (
+              <div>Brak Konwersacji</div>
+            )}
+          </div>
+          {children}
+        </>
+      )}
     </section>
   );
 };
