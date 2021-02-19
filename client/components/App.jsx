@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-import Navbar from "./Navbar";
-import Sidebar from "./Sidebar";
-import Conversation from "./Conversation";
-import MessageForm from "./MessageForm";
-import Login from "./Login";
+import styles from "../scss/main.scss"
+
+import Navbar from "./Navbar/Navbar";
+import Sidebar from "./Sidebar/Sidebar";
+import Conversation from "./Conversation/Conversation";
+import MessageForm from "./MessageForm/MessageForm";
+import Login from "./Login/Login";
 
 const App = () => {
   const [conversations, setConversations] = useState([]);
@@ -53,9 +55,9 @@ const App = () => {
   return (
     <>
       {Object.entries(user).length ? (
-        <main className="container">
-          <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}/>
-          <div className="container__wrapper">
+        <main className={styles.container}>
+          <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+          <div className={styles.wrapper}>
             <Sidebar
               contacts={contacts}
               conversations={conversations}
@@ -73,14 +75,14 @@ const App = () => {
               currentInter={currentInter}
               conversation={currentConversation ? currentConversation : null}
             >
-            <MessageForm
-              setConversations={setConversations}
-              conversations={conversations}
-              author={{ authorId: user._id, authorName: user.name }}
-              currentInter={currentInter}
-              currentConversation={currentConversation}
-              setCurrentConversation={setCurrentConversation}
-            />
+              <MessageForm
+                setConversations={setConversations}
+                conversations={conversations}
+                author={{ authorId: user._id, authorName: user.name }}
+                currentInter={currentInter}
+                currentConversation={currentConversation}
+                setCurrentConversation={setCurrentConversation}
+              />
             </Conversation>
           </div>
         </main>

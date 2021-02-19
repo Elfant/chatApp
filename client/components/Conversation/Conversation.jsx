@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Message from "./Message";
+
+import styles from "./Conversation.scss";
+
+import Message from "../Message/Message";
 
 const Conversation = ({
   conversation,
@@ -17,10 +20,10 @@ const Conversation = ({
   }, [conversation, currentInter]);
 
   return (
-    <section className="conversation">
+    <section className={styles.container}>
       {isMenuOpen ? null : (
         <>
-          <div className="conversation__messages">
+          <div className={styles.messages}>
             {conversation ? (
               messages.length ? (
                 messages.map((msg, i) => (

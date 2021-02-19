@@ -1,14 +1,5 @@
 @import "./_variables";
 
-@import "./utils/button.scss";
-
-@import "./Navbar";
-@import "./Message";
-@import "./_Conversations";
-@import "./_Sidebar";
-@import "./_CreateMessage";
-@import "./Login";
-
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 * {
@@ -27,10 +18,10 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+}
 
-  &__wrapper {
-    height: 88vh;
-    flex: 1;
-    display: flex;
-  }
+.wrapper {
+  height: 88vh;
+  flex: 1;
+  display: flex;
 }

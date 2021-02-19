@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-import connection from "../utils/connection";
+import styles from "./Login.scss";
+
+import Button from "../Button/Button.jsx";
+
+import connection from "../../utils/connection";
 
 const Login = ({ setUser }) => {
   const [nameValue, setNameValue] = useState("");
@@ -12,9 +16,10 @@ const Login = ({ setUser }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const fetchUser = async () => {
-      const resp = await fetch(`/user?name=${nameValue}&&password=${password}`);
+      const resp = await fetch(
+        `/user?name=${nameValue}&&password=${password}`
+      ).catch((e) => console.log(e));
       const user = await resp.json();
 
       if (Object.entries(user).length) {
@@ -27,15 +32,15 @@ const Login = ({ setUser }) => {
   };
 
   return (
-    <main className="login">
-      <div className="login__logo"></div>
-      <form className="login__form" onSubmit={handleSubmit}>
-        <div className="login__wrapper">
-          <h5 className="login__name-header">Login</h5>
+    <main className={styles.container}>
+      <div className={styles.logo}></div>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.wrapper}>
+          <h5 className={styles.nameHeader}>Login</h5>
           <input
             onChange={(e) => handleField(e, setNameValue)}
             value={nameValue}
-            className="login__name"
+            className={styles.name}
             type="text"
             placeholder="np: Mariusz, Kasia, Kazik"
           ></input>
@@ -49,11 +54,7 @@ const Login = ({ setUser }) => {
             type="password"
           />
         </label> */}
-        <label>
-          <button type="submit" className="login__button button">
-            Zaloguj się
-          </button>
-        </label>
+        <Button fc={handleSubmit} text="zaloguj się" />
       </form>
     </main>
   );

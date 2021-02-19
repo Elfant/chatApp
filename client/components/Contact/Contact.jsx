@@ -1,10 +1,12 @@
 import React from "react";
 
+import styles from "./Contact.scss";
+
 const Contact = ({ addConversation, contact, inter }) => {
   return (
     <li
-      className={`sidebar__contact ${
-        contact._id === inter ? "sidebar__contact--clicked" : ""
+      className={`${styles.contact} ${
+        contact._id === inter ? `${styles["contact--clicked"]}` : ""
       }`}
       onClick={() => addConversation(contact)}
     >

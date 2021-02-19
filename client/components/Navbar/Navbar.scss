@@ -1,0 +1,28 @@
+@import "../../scss/variables";
+
+.container {
+  padding: $spacing-x2;
+  display: flex;
+  justify-content: space-between;
+  background-color: $black;
+  align-items: center;
+}
+
+.toggler {
+  height: 50px;
+  width: 50px;
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.logo {
+  width: 150px;
+  height: 60px;
+
+  @media (min-width: 768px) {
+    width: 200px;
+    height: 70px;
+  }
+}

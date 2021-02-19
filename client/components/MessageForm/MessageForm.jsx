@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from "react";
+
+import styles from "./MessageForm.scss";
+
+import Button from "../Button/Button.jsx";
+
 import moment from "moment";
 
 const MessageForm = ({ currentInter, author, currentConversation }) => {
@@ -36,23 +41,16 @@ const MessageForm = ({ currentInter, author, currentConversation }) => {
   };
 
   return (
-    <div className="conversation__create-message create-message">
-      <form onSubmit={handleSubmit} className="create-message__form">
+    <div className={styles.container}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <textarea
           onChange={(e) => setInputValue(e.target.value)}
           value={inputValue}
           rows="3"
           placeholder="Wpisz wiadomość"
-          className="create-message__text"
+          className={styles.text}
         ></textarea>
-        <button
-          disabled={!currentInter ? true : false}
-          type="submit"
-          value="Wyślij"
-          className="create-message__button button"
-        >
-          Wyślij
-        </button>
+        <Button isDisabled={!currentInter ? true : false} text="Wyślij" />
       </form>
     </div>
   );

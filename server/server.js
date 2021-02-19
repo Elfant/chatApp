@@ -68,7 +68,7 @@ const io = socket(server, {
 });
 
 //serve dist
-const disPath = path.join(__dirname, "../dist");
+const disPath = path.join(__dirname, "../build");
 app.use(express.static(disPath));
 
 //send data when user login

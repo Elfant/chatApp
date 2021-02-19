@@ -1,5 +1,8 @@
 import React from "react";
-import Contact from "./Contact";
+
+import styles from "./Sidebar.scss";
+
+import Contact from "../Contact/Contact";
 
 const Sidebar = ({
   conversations,
@@ -37,24 +40,26 @@ const Sidebar = ({
   };
 
   return (
-    <aside className={`sidebar ${isMenuOpen ? "sidebar--open-on-mobile" : ""}`}>
-      <div className="sidebar__header">
+    <aside
+      className={`${styles.container} ${
+        isMenuOpen ? `${styles["container--open-on-mobile"]}` : ""
+      }`}
+    >
+      <div className={styles.header}>
         <h3>Zalogowano jako: {user.name}</h3>
       </div>
-      <div className="sidebar__content">
-        <div>
-          <ul className="sidebar__list">
-            {contacts.map((contact) => (
-              <Contact
-                inter={inter}
-                name={user.name}
-                contact={contact}
-                addConversation={handleAddingToConversation}
-                key={contact._id}
-              />
-            ))}
-          </ul>
-        </div>
+      <div className={styles.content}>
+        <ul className={styles.list}>
+          {contacts.map((contact) => (
+            <Contact
+              inter={inter}
+              name={user.name}
+              contact={contact}
+              addConversation={handleAddingToConversation}
+              key={contact._id}
+            />
+          ))}
+        </ul>
       </div>
     </aside>
   );

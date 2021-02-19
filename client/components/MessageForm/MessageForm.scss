@@ -1,0 +1,23 @@
+@import "../../scss/variables";
+
+.container {
+  height: 81px;
+  bottom: 0;
+  background-color: $grey;
+  width: 100%;
+}
+
+.form {
+  display: flex;
+}
+
+.text {
+  padding-top: $spacing-x1;
+  font-size: $basic-font-size;
+  flex: 1;
+  padding: $spacing-x1 0 0 $spacing-x1;
+  resize: none;
+  background-color: $grey;
+  border: none;
+  outline: none;
+}

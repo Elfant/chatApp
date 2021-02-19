@@ -1,0 +1,39 @@
+@import "../../scss/variables";
+
+.container {
+  display: none;
+  background-color: #484848;
+  flex-direction: column;
+
+  @media (min-width: 1024px) {
+    display: flex;
+    flex: 1;
+  }
+
+  &--open-on-mobile {
+    display: flex;
+    flex: 100%;
+    text-align: center;
+  }
+}
+
+.header {
+  font-size: $basic-font-size;
+  padding: $spacing-x3;
+  color: $white;
+  background-color: $black;
+  text-align: center;
+}
+
+.content {
+  padding: $spacing-x1 0;
+}
+
+.list {
+  list-style-type: none;
+  color: $grey;
+}
+
+.contact {
+  margin: $spacing-x3;
+}
